@@ -6,7 +6,7 @@ import {Subject} from "rxjs";
 @Injectable()
 export class UserService {
 
-    public anonymousUser = new User('Jogaja', '', 'https://media.licdn.com/dms/image/C4E03AQEsd5reNnoC3Q/profile-displayphoto-shrink_800_800/0/1654126820683?e=2147483647&v=beta&t=83ZAG9tZv2GGsWqgEVChuWQLc6VYuyxVLIhV08B4TBw');
+    public anonymousUser = new User('JogajaUser', '', 'https://media.licdn.com/dms/image/C4E03AQEsd5reNnoC3Q/profile-displayphoto-shrink_800_800/0/1654126820683?e=2147483647&v=beta&t=83ZAG9tZv2GGsWqgEVChuWQLc6VYuyxVLIhV08B4TBw');
 
     protected userInSession: any;
 

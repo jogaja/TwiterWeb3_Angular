@@ -27,7 +27,7 @@ export class ProfileComponent {
   public user: any;
   public subscription: Subscription = new Subscription();
   public name: string ="";
-  public avatar: string ="https://www.afoe.org/wp-content/uploads/2018/01/enlace-web-url.jpg";
+  public avatar: string ="";
   public bio: string ="";
   public constructor(
     private tweetService: TweetService, 
@@ -78,6 +78,4 @@ export class ProfileComponent {
       }
     });
   }
-  
-  
 }
