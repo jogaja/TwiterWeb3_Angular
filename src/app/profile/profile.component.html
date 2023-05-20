@@ -1,0 +1,38 @@
+<div *ngIf="tweets.length > 0" class="flex items-center mb-4">
+    <div class="mr-4">
+      <img class="w-16 h-16 rounded-full" [src]="tweets[0].author?.avatar" alt="Avatar">
+      
+    </div>
+    <div class="flex-grow">
+      <div class="flex items-center mb-1">
+        <h2 class="text-xl font-bold">User:{{tweets[0].author?.name}}</h2>
+        <a (click)="openDialog()" class="my-button" href="javascript:void(null);">
+          Editar
+        </a>
+      </div>
+      <p class="text-gray-600">@{{tweets[0].author?.name}}</p>
+    </div>
+    <div class="flex-shrink-0">
+      <p class="text-sm text-gray-600">{{tweets[0].author?.bio}}</p>
+    </div>
+  </div>
+  
+
+<mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+    <mat-tab label="Tweets">
+        <ng-container *ngIf="tweets.length > 0; else emptyTweets">
+          <tweet [tweet]="item" *ngFor="let item of tweets"></tweet>
+        </ng-container>
+      </mat-tab>
+      
+      <ng-template #emptyTweets>
+        <div class="empty-message">Tienes que conectar la wallet</div>
+      </ng-template>
+      
+<mat-tab label="Respuestas">
+</mat-tab>
+<mat-tab label="Multimedia/Fotos">
+</mat-tab>
+</mat-tab-group>
+  
+

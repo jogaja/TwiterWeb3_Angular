@@ -1,0 +1,32 @@
+<div class="edit_profile">
+    <div class="flex items-center justify-between px-4 py-2 bg-gray-100">
+      <button (click)="Close()" class="text-black">
+        <i class="material-icons">close</i>
+      </button>
+      <h2 class="ml-4 text-lg font-bold">Editar Perfil</h2>
+      <button [mat-dialog-close]="data" cdkFocusInitial class="px-4 py-2 ml-auto text-white bg-black rounded-full">Guardar</button>
+    </div>
+    <div class="p-4">
+      <mat-list role="list" >
+        <mat-list-item role="listitem" class="item" style="height: 120px !important">
+          <mat-form-field appearance="fill" style="height: 100px !important; width: 100%;">
+            <mat-label>Nombre</mat-label>
+            <input matInput [(ngModel)]="data.name">
+          </mat-form-field>
+        </mat-list-item>
+        <mat-list-item role="listitem" class="item">
+          <mat-form-field appearance="fill" style="height: 100px !important; width: 100%;">
+            <mat-label>Bio</mat-label>
+            <textarea matInput [(ngModel)]="data.bio"></textarea>
+          </mat-form-field>
+        </mat-list-item>
+        <mat-list-item role="listitem" class="item" style="height: 120px !important">
+            <mat-form-field appearance="fill" style="height: 100px !important; width: 100%;">
+              <mat-label>Avatar</mat-label>
+              <input matInput [(ngModel)]="data.avatar">
+            </mat-form-field>
+          </mat-list-item>
+      </mat-list>
+    </div>
+  </div>
+  
