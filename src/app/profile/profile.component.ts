@@ -6,7 +6,6 @@ import { TweetService } from '../share/tweetservice/tweet.service';
 import { UserService } from '../share/tweetservice/user.service';
 import { Web3Service } from '../share/web3service/web3.service';
 import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import { Dialog } from '@angular/cdk/dialog';
 import { edit_profileComponent } from '../share/edit-profile/edit-profile.component';
 
 export interface DialogData {
@@ -29,6 +28,7 @@ export class ProfileComponent {
   public name: string ="";
   public avatar: string ="";
   public bio: string ="";
+  public save: string="";
   public constructor(
     private tweetService: TweetService, 
     private userService: UserService, 
@@ -38,40 +38,40 @@ export class ProfileComponent {
     this.web3Service.userConected$.subscribe(async (status: boolean) => {
       if (status) {
         this.user = await this.userService.getUserInSession();
+        console.log(this.user);//Aqui ta vacio ya
         this.loadTweets();
-        if (this.tweets.length > 0) {
-          this.user = this.tweets[0].author;
-        }
       }
     });
     this.user = this.userService.getUserInSession();
+    console.log(this.user);//Aqui ta vacio ya
     this.loadTweets();
   }
-  private async loadTweets(): Promise<void> {
-    this.tweets = await this.tweetService.getMyTweets();
   
-    this.tweetService.newTweets$.subscribe(async () => {
-      this.tweets = await this.tweetService.getMyTweets();
-    });
-  }
-  
+
   public ngOnDestroy() {
     this.subscription.unsubscribe();
   }
+  private async loadTweets(): Promise<void> {
+    this.tweetService.getMyTweets().then((tweets: Tweet[]) => {
+      this.tweets = tweets;
+  });
 
+  this.subscription = this.tweetService.newTweets$.subscribe(async () => {
+    this.tweets = await this.tweetService.getMyTweets();
+  });
+  }
   openDialog(): void {
-    if (this.tweets.length > 0) {
-      this.user = this.tweets[0].author;
-    }
     
     const dialogRef = this.dialog.open(edit_profileComponent, {
-      data: { name: this.user?.name, avatar: this.user?.avatar, bio: this.user?.bio },
+      
+      data: { name: this.user?.name, avatar: this.user?.avatar,bio: this.tweets[0].author?.bio },
     });
   
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.user.name = result.name;
         this.user.avatar = result.avatar;
+        //console.log(result.avatar+"<--");
         this.user.bio = result.bio;
         this.userService.updateUser(this.user);
         this.web3Service.userConected$.next(true);
