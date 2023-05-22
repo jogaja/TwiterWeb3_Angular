@@ -30,7 +30,7 @@ export class Web3Service {
 
     public status$ = new Subject<boolean>();
 
-    public userConected$ = new Subject<boolean>();
+    public user$ = new Subject<boolean>();
 
     public constructor() {
 
@@ -102,7 +102,7 @@ export class Web3Service {
         };
 
         await this.sendTransaction(tx);
-        this.userConected$.next(true);
+        this.user$.next(true);
 
     }
 
@@ -172,7 +172,7 @@ export class Web3Service {
             let accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
             this.account = accounts[0];
             this.status$.next(true);
-            this.userConected$.next(true);
+            this.user$.next(true);
         }
     }
 

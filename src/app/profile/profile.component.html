@@ -5,7 +5,7 @@
     </div>
     <div class="flex-grow">
       <div class="flex items-center mb-1">
-        <h2 class="text-xl font-bold">User:{{user.name}}</h2>
+        <h2 class="text-xl font-bold">User:{{tweets[0].author?.name}}</h2>
         <a (click)="openDialog()" class="my-button" href="javascript:void(null);">
           Editar
         </a>

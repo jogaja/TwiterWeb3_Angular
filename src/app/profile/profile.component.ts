@@ -35,16 +35,15 @@ export class ProfileComponent {
     private web3Service: Web3Service,
     public dialog: MatDialog) 
   {
-    this.web3Service.userConected$.subscribe(async (status: boolean) => {
+    this.web3Service.user$.subscribe(async (status: boolean) => {
       if (status) {
         this.user = await this.userService.getUserInSession();
-        console.log(this.user);//Aqui ta vacio ya
         this.loadTweets();
       }
     });
     this.user = this.userService.getUserInSession();
-    console.log(this.user);//Aqui ta vacio ya
     this.loadTweets();
+    
   }
   
 
@@ -59,11 +58,11 @@ export class ProfileComponent {
   this.subscription = this.tweetService.newTweets$.subscribe(async () => {
     this.tweets = await this.tweetService.getMyTweets();
   });
+  
   }
   openDialog(): void {
     
     const dialogRef = this.dialog.open(edit_profileComponent, {
-      
       data: { name: this.user?.name, avatar: this.user?.avatar,bio: this.tweets[0].author?.bio },
     });
   
@@ -71,10 +70,9 @@ export class ProfileComponent {
       if (result) {
         this.user.name = result.name;
         this.user.avatar = result.avatar;
-        //console.log(result.avatar+"<--");
         this.user.bio = result.bio;
         this.userService.updateUser(this.user);
-        this.web3Service.userConected$.next(true);
+        this.web3Service.user$.next(true);
       }
     });
   }
